@@ -3,9 +3,13 @@
     <p v-else>Estou em busca de novas oportunidades.</p>
     <p>Utiliza as tecnologias: </p>
     <ul>
-        <li>JavaScript</li>
-        <li>Node.js</li>
-        <li>Vue.js</li>
+        <li v-for="(technology, index) in backend_technologies" v-bind:key="index">{{ technology }}</li>
+    </ul>
+    <p>Utilizo a seguintes tecnologias para Front-end</p>
+    <ul>
+        <li v-for="technology in frontend_technologies" :key="technology.id">
+            {{ technology.language }}
+        </li>
     </ul>
     <div><button @click="showEmail">Mostrar e-mail</button></div>
     <p v-show="mostrar_email">Mande uma mensagem para: {{ email }}</p>
@@ -20,12 +24,20 @@ export default {
     components:{
         Picture
     },
+    props: {
+        email: String,
+        esta_trabalhando: Boolean,
+    },
     data(){
         return {
-            esta_trabalhando: false,
             mostrar_email: false,
-            email: "danilo@email.com",
-            meu_link: 'https://google.com'
+            meu_link: 'https://google.com',
+            backend_technologies: ["Node.js", "PHP", "Python"],
+            frontend_technologies: [
+                {id: 1, language: "HTML"},
+                {id: 2, language: "CSS"},
+                {id: 3, language: "Vue.js"}
+                ]
         }
     },
     methods: {
